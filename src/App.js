@@ -1,80 +1,97 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { AreaChart, linearGradient, stop, defs, XAxis, YAxis, CartesianGrid, Tooltip, Area } from 'recharts';
-import { Navbar, ListGroup, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Dropdown} from 'react-bootstrap';
+
+import {CalenderChart, NavigationBar, DDown, Logs, Tabs} from './components';
+
+import {getLists, getTasks} from './api.js';
+import {countTasksByDate} from './utils.js';
 
 import "./App.css";
 
-function Index() {
-    const data = [
-    {
-      "name": "Wednesday",
-      "uv": 4000,
-    },
-    {
-      "name": "Thursday",
-      "uv": 3000
-    }, 
-    {
-      "name": "Friday",
-      "uv": 5000
-    }
-  ];
 
-  return (
-    <div>
-      <Navbar bg="light">
-          <Navbar.Brand href="#home">WunderList<strong>Dashboard</strong></Navbar.Brand>
-      </Navbar>
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <Container className="root">
-        <Row>
-          <Col>
-          <ListGroup>
-            <ListGroup.Item action href="#link1">
-              This is Link 1
-            </ListGroup.Item>
-            <ListGroup.Item action href="#link2">
-              This is Link 2
-            </ListGroup.Item>
-          </ListGroup>
-          </Col>
+    this.state = {
+      lists: [], 
+      selectedListId: null, 
+      selectedListTitle: null,
+      calenderChartData: []
+
+    };
+
+    this.handleListChange = this.handleListChange.bind(this);
+  }
+
+  componentDidMount() {
+    getLists().then(lists => {
+      this.setState({
+        lists: lists
+      });
+
+    }).catch((error) => {
+      // TODO: Handle this error properly 
+      console.log(error);
+    });
+  }
+
+  handleListChange(selectedList) {
+    // TODO: Handle the 'isCompleted' value depending on the user input 
+    getTasks(selectedList.id).then(tasks => {
+      countTasksByDate(tasks).then(count => {
+
+        let calenderChartData = [];
+        Object.keys(count).map(date => {
+          calenderChartData.push([new Date(date), count[date]]);
+        });
+        
+        return calenderChartData;
+      }).then(calenderChartData => {
+        this.setState({
+          selectedListId: selectedList.id,
+          selectedListTitle: selectedList.title, 
+          calenderChartData: calenderChartData
+        });
+      });
+
+    }).catch(error => {
+      // TODO: Handle this error properly 
+      console.log(error);
+    })
+  }
 
 
-          <Col>
-            <AreaChart width={650} height={350} data={data}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                </linearGradient>
-                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-              <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-            </AreaChart>
-
-            <ListGroup variant="flush" >
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-            </ListGroup>
-          </Col>
-        </Row>
-      </Container>
-
-      <ListGroup variant="flush" >
-        <ListGroup.Item>© Tanveer Gill</ListGroup.Item>
-      </ListGroup>
-    </div>
-  );
+  render() {
+    return ( 
+      <div>
+        <NavigationBar/>
+        <div className="wrapper">
+          <Container>
+              <Row>
+                <Col>
+                <div className="ddown">
+                 <DDown title="Select a list" 
+                   header= "Lists" 
+                   lists={this.state.lists} 
+                   onListChange={this.handleListChange}/>
+                </div>
+                </Col>
+              </Row>
+              <Dropdown.Divider />
+              <Row><CalenderChart title={this.state.selectedListTitle} 
+                data={this.state.calenderChartData}/></Row>
+              <Row>
+                <Tabs calenderTitle={this.state.selectedListTitle}
+                  calenderData={this.state.calenderChartData}/>
+              </Row>
+          </Container>
+        </div>
+      </div>
+    );
+  }
 }
 
 

@@ -1,6 +1,10 @@
 
-#root {
-	width: 1000px;
+.wrapper {
+	width: 900px;
 	margin: 0 auto;
 }
 
+.ddown {
+	display: inline-block;
+	margin-right: 5px;
+}
