@@ -5,7 +5,6 @@ const AUTH_URL = 'https://www.wunderlist.com/oauth/access_token';
 
 export function getAccessToken(jsonData) {
   return new Promise((resolve, reject) => {
-    /* TODO: Change this when deploying the app */
     fetch(`https://cors-anywhere.herokuapp.com/${AUTH_URL}`, {
       method: 'post',
       body: JSON.stringify({
