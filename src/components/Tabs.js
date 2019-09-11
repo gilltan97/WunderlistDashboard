@@ -1,46 +1,27 @@
 import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import CalenderChart from './CalenderChart.js'
+
+
+const style = {
+  marginTop: '10px',
+  marginBottom: '10px',
+};
 
 export default function YearTabs(props) {
+  const { years } = props;
 
-	function sortYears(calenderData) {
-		let years = [];
-		calenderData.map(entry => {
-			let year = entry[0].getFullYear();
-			if (!years.includes(year)) {
-				years.push(year);
-			}
-		});
-		return years;
-	}
+  if (!(years.length) && props.selectedYear) years.push(props.selectedYear);
 
-	function calenderDataByYears(calenderData) {
-		let dataByYears = {};
-		calenderData.map(entry => {
-			let year = entry[0].getFullYear();
+  const tabs = years.map((year, index) => (<Tab key={index} eventKey={year.toString()} title={year.toString()} />));
 
-			if (!dataByYears[year]) {
-				dataByYears[year] = [entry];
-			} else {
-				dataByYears[year].push(entry);
-			}
-		})
-		return dataByYears;
-	}
+  let selectedYear;
+  if (props.selectedYear) {
+    selectedYear = props.selectedYear.toString();
+  }
 
-	let dataByYears = calenderDataByYears(props.calenderData);
-
-	console.log(dataByYears);
-	const tabs = sortYears(props.calenderData).map((year, index) => {
-		return (<Tab key={index} eventKey={year.toString()} title={year.toString()}>
-				<CalenderChart title={props.calenderTitle} data={dataByYears[year]}/>
-			</Tab>);
-	});
-
-	return (
-		<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-			{tabs}
-		</Tabs>
-		);
+  return (
+    <Tabs onSelect={(year) => props.onYearChange(year)} style={style} activeKey={selectedYear} id="uncontrolled-tab-example">
+      {tabs}
+    </Tabs>
+  );
 }
