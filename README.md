@@ -18,4 +18,9 @@ npm run start
 ![](assets/demo.gif)
 
 ## Liscence 
-[MIT](https://github.com/gilltan97/WunderlistDashboard/blob/master/LICENSE)
+<p>
+  <a href="https://github.com/gilltan97/WunderlistDashboard/blob/master/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  </a>
+</p>
+
