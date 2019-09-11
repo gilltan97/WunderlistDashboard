@@ -15,7 +15,7 @@ npm run start
 ```
 
 ## Usage
-
+![](demo/Demo.gif)
 
 ## Liscence 
 [MIT](https://github.com/gilltan97/WunderlistDashboard/blob/master/LICENSE)
