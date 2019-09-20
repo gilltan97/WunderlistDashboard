@@ -1,6 +1,6 @@
 # WunderlistDashboard 
 
-Dashboard for viewing yearly [Wunderlist](https://www.wunderlist.com) task completion stats.
+Dashboard for viewing your yearly [Wunderlist](https://www.wunderlist.com) task completion stats.
 
 ## Installation 
 ```bash
