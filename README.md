@@ -17,7 +17,7 @@ npm run start
 ## Usage
 ![](assets/demo.gif)
 
-## Liscence 
+## License 
 <p>
   <a href="https://github.com/gilltan97/WunderlistDashboard/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
