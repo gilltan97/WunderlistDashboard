@@ -21,6 +21,11 @@ npm install
 ``` bash 
 npm run start 
 ```
+## Building for Deployment
+To produce the production-ready minified bundle:
+```bash 
+npm run build
+```
 
 ## Usage
 Visit `https://localhost:8080` in your browser. 😁
