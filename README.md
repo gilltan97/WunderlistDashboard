@@ -1,10 +1,8 @@
 # WunderlistDashboard 
-<p>
-  <a href="https://github.com/gilltan97/WunderlistDashboard/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
-  </a>
-</p>
-
+![node-versions](https://img.shields.io/badge/node->=10.20-red.svg)
+![npm-version](https://img.shields.io/badge/npm-4.6.1-pink.svg)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 Dashboard for viewing your yearly [Wunderlist](https://www.wunderlist.com) task completion stats.
 
