@@ -28,7 +28,7 @@ npm run build
 ```
 
 ## Usage
-Visit `https://localhost:8080` in your browser. 😁
+Visit `https://localhost:3000` in your browser. 😁
 
 ## Demo
 ![](assets/demo.gif)
